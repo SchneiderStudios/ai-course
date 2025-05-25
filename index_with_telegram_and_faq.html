@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ИИ для жизни — Schneider Studios Education</title>
+  <link rel="icon" href="favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; font-family: 'Inter', sans-serif; background: #f9fafb; color: #1f2937; }
+    header, footer { background: #2563eb; color: white; text-align: center; padding: 20px; }
+    header img { height: 80px; margin-bottom: 10px; }
+    nav a { color: white; margin: 0 10px; text-decoration: none; font-weight: 600; }
+    main { max-width: 960px; margin: auto; padding: 20px; background: white; border-radius: 8px; }
+    h2 { margin-top: 40px; color: #111827; }
+    .grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+    .card { background: #f3f4f6; padding: 20px; border-radius: 8px; border: 1px solid #e5e7eb; }
+    form { max-width: 400px; margin: 20px auto; display: flex; flex-direction: column; gap: 10px; }
+    input, textarea { padding: 10px; font-size: 1rem; border: 1px solid #ccc; border-radius: 6px; }
+    button { background: #2563eb; color: white; border: none; padding: 12px; border-radius: 6px; font-size: 1rem; cursor: pointer; }
+    .cta { background: #10b981; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600; display: inline-block; margin: 10px 10px 0 0; }
+  </style>
+</head>
+<body>
+
+<header>
+  <img src="logo.png" alt="Schneider Studios" />
+  <h1>Schneider Studios Education</h1>
+  <p>Образование для цифрового будущего — 4 занятия по 45 минут</p>
+</header>
+
+<main>
+  <section id="topics">
+    <h2>Темы и навыки курса</h2>
+    <div class="grid">
+      <div class="card"><strong>Что такое ChatGPT и зачем он нужен</strong><br>Как работает ИИ и как использовать его каждый день.</div>
+      <div class="card"><strong>Как задавать вопросы, чтобы ИИ давал полезные ответы</strong><br>Техники промптов и продуктивного диалога с ChatGPT.</div>
+      <div class="card"><strong>Повседневные задачи с ИИ</strong><br>Письма, банкинг, помощь в работе и жизни.</div>
+      <div class="card"><strong>ИИ как редактор, переводчик и преподаватель</strong><br>Автоматизация текстов, переводы, объяснения.</div>
+    </div>
+    <p><strong>Стоимость курса: 45 евро</strong></p>
+  </section>
+
+  <section id="audience">
+    <h2>Для кого этот курс?</h2>
+    <div class="grid">
+      <div class="card">Русскоязычные взрослые в Германии</div>
+      <div class="card">Новички без IT-знаний</div>
+      <div class="card">Практичные люди, ценящие своё время</div>
+    </div>
+  </section>
+
+  <section id="format">
+    <h2>Как проходит обучение</h2>
+    <ul>
+      <li>💻 Zoom-вебинары: 4 занятия по 45 минут</li>
+      <li>📄 Методические материалы: PDF-гайды</li>
+      <li>💬 Поддержка в Telegram-чате</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Записаться</h2>
+    <form id="tg-form">
+      <input name="name" type="text" placeholder="Ваше имя" required>
+      <input name="email" type="email" placeholder="Ваш Email" required>
+      <textarea name="message" placeholder="Комментарий (необязательно)" rows="4"></textarea>
+      <button type="submit">Отправить заявку</button>
+    </form>
+    <p id="success" style="text-align:center; color: green; font-weight: bold;"></p>
+  </section>
+
+  <section id="faq">
+    <h2>Часто задаваемые вопросы</h2>
+    <details><summary>Нужны ли мне знания в области IT?</summary>
+      <p>Абсолютно нет! Курс разработан для людей без технического опыта. Всё объясняется простым языком.</p>
+    </details>
+    <details><summary>Что если я пропущу занятие?</summary>
+      <p>Вы получите запись. Можно задать вопрос в Telegram-чате.</p>
+    </details>
+    <details><summary>Сколько времени нужно уделять курсу?</summary>
+      <p>4 модуля по 45 минут + 30–60 минут практики в неделю. Удобно даже для занятых людей.</p>
+    </details>
+  </section>
+</main>
+
+<footer>
+  © 2025 Schneider Studios Education — ishneider@icloud.com
+</footer>
+
+<script>
+document.getElementById('tg-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const name = this.name.value;
+  const email = this.email.value;
+  const message = this.message.value || '—';
+
+  const text = encodeURIComponent(`✉️ Новая заявка на курс:\n👤 Имя: ${name}\n📧 Email: ${email}\n💬 Комментарий: ${message}`);
+  const url = "https://api.telegram.org/bot7619602213:AAFe_PY8KMskCy9I6JfhuRXVmC23N6hj5C0/sendMessage?chat_id=7290359157&text=" + text;
+
+  fetch(url)
+    .then(res => {
+      document.getElementById('success').innerText = 'Заявка отправлена!';
+      document.getElementById('tg-form').reset();
+    })
+    .catch(err => {
+      document.getElementById('success').innerText = 'Ошибка отправки 😢';
+    });
+});
+</script>
+
+</body>
+</html>
